@@ -1,0 +1,6 @@
+{
+  "urdf-visualizer.packages": {
+    "mybot_description": "${workspaceFolder}/mybot_description",
+    "realsense2_description": "${workspaceFolder}/realsense2_description"
+  }
+}

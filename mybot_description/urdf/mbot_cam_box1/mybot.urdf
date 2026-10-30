@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<robot name="mybot">
+    <!-- 재질 정의 -->
+    <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <link name="base_footprint"/>
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://mybot_description/meshes/base_link.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.008"/>
+            <geometry>
+                <box size="0.925 0.38 0.21"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin xyz="0 0 0.035"/>
+            <geometry>
+                <box size="0.154 0.627 0.07"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="50"/>
+            <origin xyz="0.0 0.0 0.0"/>
+            <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465"/>
+        </inertial>
+    </link>
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0.2352" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- Front right wheel -->
+    <link name="front_right_wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mybot_description/meshes/wheel_type1.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.11653" radius="0.16459"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="8"/>
+            <inertia ixx="0.1171" ixy="0" ixz="0" iyy="0.1361" iyz="0" izz="0.1171"/>
+        </inertial>
+    </link>
+    <joint name="front_right_wheel" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_right_wheel_link"/>
+        <origin rpy="3.14 0 0" xyz="0.249 -0.29153 -0.0702"/>
+        <axis xyz="0 -1 0"/>
+        <dynamics damping="0.0" friction="20"/>
+    </joint>
+
+
+    <!-- Front left wheel -->
+    <link name="front_left_wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mybot_description/meshes/wheel_type2.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.11653" radius="0.16459"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="8"/>
+            <inertia ixx="0.1171" ixy="0" ixz="0" iyy="0.1361" iyz="0" izz="0.1171"/>
+        </inertial>
+    </link>
+    <joint name="front_left_wheel" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_left_wheel_link"/>
+        <origin rpy="0 0 0" xyz="0.249 0.29153 -0.0702"/>
+        <axis xyz="0 1 0"/>
+        <dynamics damping="0.0" friction="20"/>
+    </joint>
+
+    <!-- Rear left wheel -->
+    <link name="rear_left_wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mybot_description/meshes/wheel_type2.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.11653" radius="0.16459"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="8"/>
+            <inertia ixx="0.1171" ixy="0" ixz="0" iyy="0.1361" iyz="0" izz="0.1171"/>
+        </inertial>
+    </link>
+    <joint name="rear_left_wheel" type="continuous">
+        <parent link="base_link"/>
+        <child link="rear_left_wheel_link"/>
+        <origin rpy="0 0 0" xyz="-0.249 0.29153 -0.0702"/>
+        <axis xyz="0 1 0"/>
+        <dynamics damping="0.0" friction="20"/>
+    </joint>
+
+
+    <!-- Rear right wheel -->
+    <link name="rear_right_wheel_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mybot_description/meshes/wheel_type1.dae"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.11653" radius="0.16459"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="8"/>
+            <inertia ixx="0.1171" ixy="0" ixz="0" iyy="0.1361" iyz="0" izz="0.1171"/>
+        </inertial>
+    </link>
+    <joint name="rear_right_wheel" type="continuous">
+        <parent link="base_link"/>
+        <child link="rear_right_wheel_link"/>
+        <origin rpy="3.14 0 0" xyz="-0.249 -0.29153 -0.0702"/>
+        <axis xyz="0 -1 0"/>
+        <dynamics damping="0.0" friction="20"/>
+    </joint>
+
+    <!-- 2D LiDAR Link -->
+    <link name="lidar_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.1"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.000045" ixy="0" ixz="0" iyy="0.000045" iyz="0" izz="0.000075"/>
+        </inertial>
+    </link>
+    <joint name="lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0 0 0.13" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Camera link -->
+    <link name="camera_link">
+        <visual>
+            <geometry>
+                <box size="0.02 0.02 0.02"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.02 0.02 0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.000083" ixy="0" ixz="0" iyy="0.000083" iyz="0" izz="0.000083"/>
+        </inertial>
+    </link>
+    <joint name="camera_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+        <origin xyz="0.40 0.0 0.04"/>
+    </joint>
+
+    <!-- Gazebo 속성: LiDAR 링크 -->
+    <gazebo reference="lidar_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    <!-- Gazebo 속성: 카메라 링크 (색상 추가) -->
+    <gazebo reference="camera_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <!-- Gazebo 속성: 베이스 링크 -->
+    <gazebo reference="base_link">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+    </gazebo>
+    <!-- Gazebo 속성: 바퀴 링크 -->
+    <gazebo reference="front_right_wheel_link">
+        <mu1>0.8</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+    <gazebo reference="front_left_wheel_link">
+        <mu1>0.8</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+    <gazebo reference="rear_right_wheel_link">
+        <mu1>0.8</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+    <gazebo reference="rear_left_wheel_link">
+        <mu1>0.8</mu1>
+        <mu2>0.5</mu2>
+    </gazebo>
+
+</robot>
