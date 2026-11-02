@@ -1,0 +1,13 @@
+apriltag:
+  ros__parameters:
+    # 1. 사용할 마커 패밀리 지정 (일반적으로 tag36h11 사용)
+    tag_family: "tag36h11"
+
+    # 2. 검출기 성능 및 스레드 튜닝
+    tag_threads: 2
+    tag_decimate: 1.0         # 1.0: 원본 해상도 검출 (정밀도 우선), 2.0: 다운샘플링 (속도 우선)
+    tag_blur: 0.0             # 가우시안 블러 크기
+    tag_refine_edges: true    # 서브픽셀 코너 정밀화 (PnP 정밀도 향상 필수 옵션)
+    tag_debug: false
+    max_hamming_distance: 0   # 0: 오인식 원천 차단
+    publish_tf: false         # TF는 apriltag_6dof에서 직접 발행하므로 중복 방지 비활성화

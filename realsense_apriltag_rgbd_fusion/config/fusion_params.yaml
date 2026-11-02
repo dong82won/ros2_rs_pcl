@@ -1,0 +1,10 @@
+/**:
+  rgbd_tag_fusion_node:
+    ros__parameters:
+      target_tag_id: 0
+      tag_size: 0.048                   # 마커 한 변의 실제 물리 크기 (6cm = 0.06m)
+      target_frame: "camera_color_optical_frame"
+      residual_threshold_m: 0.03       # PnP Z축과 Depth 실측치 간 허용 잔차 (12cm)
+      min_decision_margin: 15.0        # 복호화 신뢰도 임계값
+      depth_roi_half_size: 2           # 5x5 ROI 윈도우
+      sync_slop_sec: 0.060             # 60ms 동기화 공차

@@ -1,0 +1,20 @@
+/**:
+  apriltag_node:
+    ros__parameters:
+      image_transport: "raw"
+      family: "36h11"
+      size: 0.048           # 마커 물리적 크기: 6cm (0.06m)
+      max_hamming: 0
+      z_up: true
+      publish_tfs: false   # 단안 PnP TF 중복 배제 (융합 노드 TF로 단일화)
+
+      tag:
+        ids: [0]
+        frames: ["tag36h11_0"]
+        sizes: [0.048]
+
+      detector:
+        threads: 4
+        decimate: 1.0
+        blur: 0.0
+        refine: true       # bool 타입으로 명시 (정수 1 사용 금지)

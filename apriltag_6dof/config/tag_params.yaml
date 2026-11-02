@@ -1,0 +1,16 @@
+tag_fusion_node:
+  ros__parameters:
+    target_tag_id: 0                         # 추적 대상 태그 고유 ID
+    # tag_size: 0.048                          # 실제 마커 규격 (48mm = 0.048m)
+    tag_size: 0.024                          # 실제 마커 규격 (24mm = 0.024m)
+    target_frame: "camera_color_optical_frame" # 렌즈 광학 프레임
+    camera_base_frame: "base_link"            # realsense2_description 최상위 루트 프레임
+    
+    track_all_tags: true              # 단일 타깃 필터 해제 (전체 마커 동시 추적)
+
+    min_decision_margin: 15.0                # 태그 검출 최소 신뢰도 임계치
+    sync_slop_sec: 0.050                     # 시간 동기화 허용 오차 (50ms)
+    reprojection_error_thresh_px: 3.0        # PnP 기각 임계치 (px)
+
+    image_topic: "/camera/camera/color/image_raw"
+    camera_info_topic: "/camera/camera/color/camera_info"
