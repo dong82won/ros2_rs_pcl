@@ -1,0 +1,60 @@
+camera:
+  ros__parameters:
+    camera_name: "camera"
+    publish_tf: true
+    tf_publish_rate: 0.0  # 0.0: 정적 TF(/tf_static) 발행
+
+    # 1. 스트림 및 최적 해상도/FPS (D435i 네이티브 비율 848x480 권장)
+    enable_color: true
+    enable_depth: true
+    rgb_camera.color_profile: "640x480x30"
+    depth_module.depth_profile: "640x480x30"
+
+    # 2. Align Depth, 프레임 및 시스템 시간 동기화
+    align_depth.enable: true
+    enable_sync: true                         # 노출 고정을 쓰지 않을 경우 false로 변경
+    rgb_camera.global_time_enabled: true
+    depth_module.global_time_enabled: true
+
+    # 3. 실시간 지연 최소화 (과거 프레임 누적 방지)
+    rgb_camera.frames_queue_size: 2
+    depth_module.frames_queue_size: 2
+    align_depth.frames_queue_size: 2
+
+    # 4. 불필요한 센서 및 무거운 부가 토픽 차단
+    enable_infra1: false
+    enable_infra2: false
+    enable_gyro: false
+    enable_accel: false
+    pointcloud.enable: false
+    colorizer.enable: false
+    enable_rgbd: false
+
+    # 5. 뎁스 정밀도 및 Disparity 기반 경량 필터
+    depth_module.visual_preset: 3      # 3: High Accuracy
+    depth_module.emitter_enabled: 1    # IR 패턴 프로젝터 활성화
+    depth_module.laser_power: 150.0    # 근거리 반사체 포화 시 100~120으로 하향 조정
+    clip_distance: 2.0
+    disparity_filter.enable: true      # spatial_filter 정확도 향상 (아래 항목과 필수 세트)
+    disparity_to_depth.enable: true
+    spatial_filter.enable: true
+    temporal_filter.enable: false      # 고정형(Eye-to-Hand) 카메라이면 true로 변경
+    hole_filling_filter.enable: false
+
+    # 6. 노출 고정 및 60Hz 플리커 안정화
+    rgb_camera.enable_auto_exposure: true    # 자동 노출 해제 (30Hz 고정 핵심)
+    rgb_camera.exposure: 150                  # 환경 밝기에 맞춰 100~300 사이 조정
+    rgb_camera.auto_exposure_priority: false
+    rgb_camera.power_line_frequency: 2        # 60Hz (한국 실내 조명 플리커 제거)
+
+
+    # 7. 불필요한 압축 토픽(/theora, /zstd 등) 제거
+    camera.color.image_raw.enable_pub_plugins: ['image_transport/raw']
+    camera.depth.image_rect_raw.enable_pub_plugins: ['image_transport/raw']
+    camera.aligned_depth_to_color.image_raw.enable_pub_plugins: ['image_transport/raw']
+
+    # 8. Publisher QoS 설정 (Best Effort로 프레임 정체 방지)
+    color_qos: "SENSOR_DATA"
+    depth_qos: "SENSOR_DATA"
+    color_info_qos: "SENSOR_DATA"
+    depth_info_qos: "SENSOR_DATA"

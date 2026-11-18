@@ -1,0 +1,21 @@
+apriltag:
+  ros__parameters:
+    qos_profile: "sensor_data"
+    image_transport: raw
+    family: '36h11'
+    size: 0.050          # 태그 실제 크기 (단위: m)
+    pose_estimation_method: pnp
+    max_hamming: 0       # 0: 오인식 차단
+
+    detector:
+      threads: 2
+      decimate: 1.0
+      blur: 0.0
+      refine: true       # <-- 1 에서 true 로 변경 (오류 원인)
+      sharpening: 0.25
+      debug: false       # <-- 0 에서 false 로 변경 권장
+
+    tag:
+      ids: [0, 1, 2, 3]
+      frames: ['tag36h11:0', 'tag36h11:1', 'tag36h11:2', 'tag36h11:3']
+      sizes: [0.050, 0.050, 0.050, 0.050]
